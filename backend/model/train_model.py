@@ -4,8 +4,7 @@ from sklearn.ensemble import IsolationForest
 from google.cloud import storage
 from google.oauth2 import service_account
 import pickle
-
-from collect_data import fetch_roles, fetch_access_logs, fetch_compliance_data, fetch_iam_activity_logs
+import fetch_roles, fetch_access_logs, fetch_compliance_data, fetch_iam_activity_logs
 
 
 # Path to your GCP service account key file

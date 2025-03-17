@@ -5,11 +5,11 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./backend
-    restart: "no"  # ✅ Fix: Added quotes
+    restart: "no"
     ports:
       - 5400:5400
     networks:
-      - custom-vpc
+      - custom-vpc  # ✅ Use the correct network
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/app/service-account-key.json
     volumes:
@@ -19,14 +19,14 @@ services:
   frontend:
     build:
       context: ./frontend
-    restart: "no"  # ✅ Recommended: Add restart policy for frontend too
+    restart: "no"
     volumes:
       - ./frontend:/app
     ports:
       - 3000:3000
     networks:
-      - custom-vpc
+      - custom-vpc  # ✅ Use the correct network
 
 networks:
-  ts-network:
+  custom-vpc:  # ✅ Ensure the network is defined
     driver: bridge

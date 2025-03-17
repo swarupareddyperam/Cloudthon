@@ -51,6 +51,8 @@ steps:
       - '--image=gcr.io/$_PROJECT_ID/frontend'
       - '--cluster=my-cluster'
       - '--location=us-central1'
+  options:
+  logging: CLOUD_LOGGING_ONLY
 
   # # Run Security Scans
   # - name: 'gcr.io/cloud-builders/gcloud'

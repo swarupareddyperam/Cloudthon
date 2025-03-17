@@ -28,8 +28,8 @@ options:
       - 'apply'
       - '--filename=./backend.yaml'
       - '--image=gcr.io/$_PROJECT_ID/backend'
-      - '--cluster=my-cluster'
-      - '--location=us-central1'
+      - '--cluster=cloudthon'
+      - '--location=europe-west1'
 
   # Deploy Frontend to GKE
   - name: 'gcr.io/cloud-builders/gke-deploy'
@@ -37,8 +37,8 @@ options:
       - 'apply'
       - '--filename=./frontend.yaml'
       - '--image=gcr.io/$_PROJECT_ID/frontend'
-      - '--cluster=my-cluster'
-      - '--location=us-central1'
+      - '--cluster=cloudthon'
+      - '--location=europe-west1'
 
   # Run Security Scans
   - name: 'gcr.io/cloud-builders/gcloud'

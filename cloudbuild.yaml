@@ -6,24 +6,17 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
-  # Copy Service Account Key to /workspace/
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - 'cp keys/serviceaccount.json /workspace/service-account-key.json'
+  
 
   # Build Backend
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend', './backend']
-    env:
-      - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/service-account-key.json'
+    
 
   # Build Frontend
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend', './frontend']
-    env:
-      - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/service-account-key.json'
+    
 
   # Push Backend Image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
@@ -40,8 +33,7 @@ steps:
       - '--filename=./frontend.yaml'
       - '--cluster=cloudthon'
       - '--location=$_REGION'
-    env:
-      - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/service-account-key.json'
+   
 
   # Deploy Backend to GKE
   - name: 'gcr.io/cloud-builders/gke-deploy'
@@ -50,5 +42,4 @@ steps:
       - '--filename=./backend.yaml'
       - '--cluster=cloudthon'
       - '--location=$_REGION'
-    env:
-      - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/service-account-key.json'
+    

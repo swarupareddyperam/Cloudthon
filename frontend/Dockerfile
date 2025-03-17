@@ -5,6 +5,7 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 ENV GOOGLE_APPLICATION_CREDENTIALS="/app/keys/serviceaccount.json"
+COPY keys/serviceaccount.json /app/keys/serviceaccount.json
 # Install dependencies
 RUN npm install
 

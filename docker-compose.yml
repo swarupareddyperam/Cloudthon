@@ -7,9 +7,7 @@ services:
       context: ./backend
     restart: "no"
     ports:
-      - 5400:5400
-    networks:
-      - custom-vpc  # ✅ Use the correct network
+      - "5400:5400"
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/app/service-account-key.json
     volumes:
@@ -23,10 +21,6 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - 3000:3000
-    networks:
-      - custom-vpc  # ✅ Use the correct network
+      - "3000:3000"
 
-networks:
-  custom-vpc:  # ✅ Ensure the network is defined
-    driver: bridge
+# ✅ Remove the custom Docker network unless absolutely needed

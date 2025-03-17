@@ -4,24 +4,7 @@ substitutions:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-steps:
-  # Create GKE Cluster with Custom VPC
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'container'
-      - 'clusters'
-      - 'create'
-      - 'my-cluster'
-      - '--zone=europe-west1'
-      - '--num-nodes=3'
-      - '--machine-type=e2-standard-4'
-      - '--enable-autoscaling'
-      - '--min-nodes=1'
-      - '--max-nodes=5'
-      - '--enable-network-policy'
-      - '--enable-ip-alias'
-      - '--network=custom-vpc'
-      - '--subnetwork=custom-subnet'
+
 
   # Build Backend
   - name: 'gcr.io/cloud-builders/docker'
@@ -43,7 +26,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       - 'apply'
-      - '--filename=./k8s/backend-deployment.yaml'
+      - '--filename=./backend.yaml'
       - '--image=gcr.io/$_PROJECT_ID/backend'
       - '--cluster=my-cluster'
       - '--location=us-central1'
@@ -52,7 +35,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       - 'apply'
-      - '--filename=.frontend-deployment.yaml'
+      - '--filename=./frontend.yaml'
       - '--image=gcr.io/$_PROJECT_ID/frontend'
       - '--cluster=my-cluster'
       - '--location=us-central1'

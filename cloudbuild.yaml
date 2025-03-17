@@ -32,7 +32,7 @@ steps:
       - |
         'docker pull $_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend &&
          docker pull $_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend &&
-         cd /home/ubuntu/app &&
+         cd /home/guyr2168/Cloudthon &&
          docker-compose down &&
          docker-compose up -d'
 

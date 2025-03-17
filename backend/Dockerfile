@@ -10,10 +10,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 # Copy the current directory contents into the container
 COPY . .
-COPY keys/serviceaccount.json /app/keys/service-account-key.json
+COPY keys/serviceaccount.json /app/keys/serviceaccount.json
 
 # Set environment variable for credentials
-ENV GOOGLE_APPLICATION_CREDENTIALS="/app/keys/service-account-key.json"
+ENV GOOGLE_APPLICATION_CREDENTIALS="/app/keys/serviceaccount.json"
 # Expose port 5400 for the Flask app
 EXPOSE 5400
 # Run the Flask app

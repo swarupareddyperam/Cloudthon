@@ -1,3 +1,4 @@
+import os 
 from flask import Flask, jsonify
 from flask_cors import CORS
 from google.oauth2 import service_account

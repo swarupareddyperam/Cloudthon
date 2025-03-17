@@ -7,7 +7,7 @@ import pickle
 from collect_data import fetch_roles, fetch_access_logs, fetch_compliance_data, fetch_iam_activity_logs
 
 
-credentials = service_account.Credentials.from_service_account_file("../keys/service-account-key.json")
+SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "./keys/service-account-key.json")
 storage_client = storage.Client(credentials=credentials)
 
 # Load data from GCP

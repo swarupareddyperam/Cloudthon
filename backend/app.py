@@ -14,10 +14,10 @@ from sample_data.data import RISK_ALERTS, ACCESS_LOGS
 app = Flask(__name__)
 CORS(app, origins=["*", "http://localhost:3000", "http://127.0.0.1:3000"])
 
-# Path to your GCP service account key file
-SERVICE_ACCOUNT_FILE = "../keys/service-account-key.json"
+## Read service account key file path from an environment variable
+SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "./keys/service-account-key.json")
 
-# Initialize GCP clients
+# Use the credentials in your Google Cloud API calls
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE)
 iam_service = build("iam", "v1", credentials=credentials)  # Initialize IAM service
 logging_client = logging.Client(credentials=credentials)

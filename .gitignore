@@ -1,0 +1,8 @@
+keys/*.json
+
+keys/service-account-key.json
+
+*.pyc
+terraform.json
+.terraform
+.terraform.*

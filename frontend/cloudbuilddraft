@@ -1,0 +1,39 @@
+substitutions:
+  _PROJECT_ID: "your-project-id"
+  _REGION: "europe-west1"
+  _ZONE: "europe-west1-b"
+
+steps:
+  # Step 1: Build Backend Image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/my-repo/python-backend', './backend']
+
+  # Step 2: Build Frontend Image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/my-repo/react-frontend', './frontend']
+
+  # Step 3: Push Backend Image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/my-repo/python-backend']
+
+  # Step 4: Push Frontend Image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/my-repo/react-frontend']
+
+  # Step 5: SSH into Compute Engine and deploy using Docker Compose
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'compute'
+      - 'ssh'
+      - 'my-vm-instance'
+      - '--zone=$_ZONE'
+      - '--command'
+      - |
+        'docker pull $_REGION-docker.pkg.dev/$_PROJECT_ID/my-repo/python-backend &&
+         docker pull $_REGION-docker.pkg.dev/$_PROJECT_ID/my-repo/react-frontend &&
+         cd /home/ubuntu/app &&
+         docker-compose down &&
+         docker-compose up -d'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -9,7 +9,7 @@ services:
     ports:
       - 5400:5400
     networks:
-      - ts-network
+      - custom-vpc
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/app/service-account-key.json
     volumes:
@@ -25,7 +25,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      - ts-network
+      - custom-vpc
 
 networks:
   ts-network:

@@ -38,7 +38,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       - 'apply'
-      - '--filename=./k8s/backend-deployment.yaml'
+      - '--filename=./backend.yaml'
       - '--image=gcr.io/$_PROJECT_ID/backend'
       - '--cluster=my-cluster'
       - '--location=us-central1'
@@ -47,7 +47,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       - 'apply'
-      - '--filename=./k8s/frontend-deployment.yaml'
+      - '--filename=./frontend.yaml'
       - '--image=gcr.io/$_PROJECT_ID/frontend'
       - '--cluster=my-cluster'
       - '--location=us-central1'

@@ -1,8 +1,6 @@
-
 substitutions:
   _PROJECT_ID: "second-broker-453913-b0"
   _REGION: "europe-west1"
-  _ZONE: "europe-west1-b"
 
 steps:
   # Step 1: Build Backend Image
@@ -21,20 +19,29 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend']
 
-  # Step 5: SSH into Compute Engine and deploy using Docker Compose
+  # Step 5: Deploy Backend to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      - 'compute'
-      - 'ssh'
-      - 'docker-vm'
-      - '--zone=$_ZONE'
-      - '--command'
-      - |
-        'docker pull $_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend &&
-         docker pull $_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend &&
-         cd /home/guyr2168/Cloudthon &&
-         docker-compose down &&
-         docker-compose up -d'
+      - 'run'
+      - 'deploy'
+      - 'backend-service'
+      - '--image=$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend'
+      - '--region=$_REGION'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--port=5400'
+
+  # Step 6: Deploy Frontend to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'frontend-service'
+      - '--image=$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend'
+      - '--region=$_REGION'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--port=3000'
 
 options:
   logging: CLOUD_LOGGING_ONLY

@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask, jsonify
 from flask_cors import CORS
 from google.oauth2 import service_account
@@ -11,7 +12,8 @@ import pandas as pd
 
 from src.gcp_data import fetch_iam_activity_logs, fetch_roles
 from sample_data.data import RISK_ALERTS, ACCESS_LOGS
-
+import sys
+sys.path.append("/app")
 
 app = Flask(__name__)
 CORS(app, origins=["*", "http://localhost:3000", "http://127.0.0.1:3000"])

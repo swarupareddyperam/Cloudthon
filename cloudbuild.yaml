@@ -5,7 +5,7 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
-  # Create GKE Cluster
+  # Create GKE Cluster with Custom VPC
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'container'
@@ -20,6 +20,8 @@ steps:
       - '--max-nodes=5'
       - '--enable-network-policy'
       - '--enable-ip-alias'
+      - '--network=custom-vpc-network'
+      - '--subnetwork=custom-subnet'
 
   # Build Backend
   - name: 'gcr.io/cloud-builders/docker'

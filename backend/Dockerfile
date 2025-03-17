@@ -5,7 +5,6 @@ COPY . /app
 
 # Set the working directory in the container
 WORKDIR /app
-ENV GOOGLE_APPLICATION_CREDENTIALS="/app/keys/serviceaccount.json"
 
 # Copy the requirements file into the container
 COPY requirements.txt .
@@ -15,6 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the current directory contents into the container
 COPY . .
+ENV GOOGLE_APPLICATION_CREDENTIALS="/app/keys/serviceaccount.json"
 
 # Expose port 5400 for the Flask app
 EXPOSE 5400

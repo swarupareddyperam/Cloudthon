@@ -5,38 +5,37 @@ substitutions:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-# steps:
-#   # Build Backend
-#   - name: 'gcr.io/cloud-builders/docker'
-#     args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO/backend', './backend']
+steps:
+  # Build Backend
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend', './backend']
 
-#   # Build Frontend
-#   - name: 'gcr.io/cloud-builders/docker'
-#     args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO/frontend', './frontend']
+  # Build Frontend
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend', './frontend']
 
-#   # Push Backend Image to Artifact Registry
-#   - name: 'gcr.io/cloud-builders/docker'
-#     args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend']
+  # Push Backend Image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend']
 
-#   # Push Frontend Image to Artifact Registry
-#   - name: 'gcr.io/cloud-builders/docker'
-#     args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend']
+  # Push Frontend Image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend']
 
   # Deploy Backend to GKE
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       - 'apply'
       - '--filename=./backend.yaml'
-      - '--image=gcr.io/$_PROJECT_ID/backend'
+      - '--image=$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend'
       - '--cluster=cloudthon'
-      - '--location=europe-west1'
+      - '--location=$_REGION'
 
   # Deploy Frontend to GKE
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       - 'apply'
       - '--filename=./frontend.yaml'
-      - '--image=gcr.io/$_PROJECT_ID/frontend'
+      - '--image=$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend'
       - '--cluster=cloudthon'
-      - '--location=europe-west1'
-
+      - '--location=$_REGION'

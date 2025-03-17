@@ -5,7 +5,7 @@ COPY . /app
 
 # Set the working directory in the container
 WORKDIR /app
-ENV GOOGLE_APPLICATION_CREDENTIALS="/keys/serviceaccount.json"
+ENV GOOGLE_APPLICATION_CREDENTIALS="./keys/serviceaccount.json"
 
 # Copy the requirements file into the container
 COPY requirements.txt .

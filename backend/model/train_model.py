@@ -8,7 +8,7 @@ import pickle
 from collect_data import fetch_roles, fetch_access_logs, fetch_compliance_data, fetch_iam_activity_logs
 
 
-export GOOGLE_APPLICATION_CREDENTIALS="/keys/serviceaccount.json"
+export GOOGLE_APPLICATION_CREDENTIALS="./keys/serviceaccount.json"
 if not SERVICE_ACCOUNT_FILE or not os.path.exists(SERVICE_ACCOUNT_FILE):
     raise FileNotFoundError(f"Service account file not found: {SERVICE_ACCOUNT_FILE}")
 storage_client = storage.Client(credentials=credentials)

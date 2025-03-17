@@ -22,18 +22,20 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend']
 
-  # Deploy Backend to GKE
-  - name: 'gcr.io/cloud-builders/gke-deploy'
-    args:
-      - 'apply'
-      - '--filename=./backend.yaml'
-      - '--cluster=cloudthon'
-      - '--location=$_REGION'
+  
 
   # Deploy Frontend to GKE
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       - 'apply'
       - '--filename=./frontend.yaml'
+      - '--cluster=cloudthon'
+      - '--location=$_REGION'
+
+  # Deploy Backend to GKE
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args:
+      - 'apply'
+      - '--filename=./backend.yaml'
       - '--cluster=cloudthon'
       - '--location=$_REGION'

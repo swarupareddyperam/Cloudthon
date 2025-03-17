@@ -12,7 +12,7 @@ steps:
       - 'clusters'
       - 'create'
       - 'my-cluster'
-      - '--zone=us-central1-a'
+      - '--zone=europe-west1'
       - '--num-nodes=3'
       - '--machine-type=e2-standard-4'
       - '--enable-autoscaling'
@@ -20,7 +20,7 @@ steps:
       - '--max-nodes=5'
       - '--enable-network-policy'
       - '--enable-ip-alias'
-      - '--network=custom-vpc-network'
+      - '--network=custom-vpc'
       - '--subnetwork=custom-subnet'
 
   # Build Backend

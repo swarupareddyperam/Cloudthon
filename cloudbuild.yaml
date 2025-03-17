@@ -7,7 +7,8 @@ options:
 
 steps:
   # Copy Service Account Key to /workspace/
-  - name: 'gcr.io/cloud-builders/bash'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
     args:
       - '-c'
       - 'cp keys/service-account-key.json /workspace/service-account-key.json'

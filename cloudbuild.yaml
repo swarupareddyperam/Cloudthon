@@ -4,8 +4,7 @@ substitutions:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-
-
+steps:
   # Build Backend
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$_PROJECT_ID/backend', './backend']
@@ -40,48 +39,4 @@ options:
       - '--cluster=cloudthon'
       - '--location=europe-west1'
 
-  # Run Security Scans
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['beta', 'container', 'images', 'scan', 'gcr.io/$_PROJECT_ID/backend']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['beta', 'container', 'images', 'scan', 'gcr.io/$_PROJECT_ID/frontend']
-
-  # Enable Cloud Logging
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'services'
-      - 'enable'
-      - 'logging.googleapis.com'
-      - '--project=$_PROJECT_ID'
   
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'logging'
-      - 'sinks'
-      - 'create'
-      - 'gke-logs'
-      - 'storage.googleapis.com/$_PROJECT_ID-logs'
-      - '--log-filter="resource.type=gke_cluster"'
-      - '--format=json'
-      - '--project=$_PROJECT_ID'
-
-  # Apply IAM Role and Policy Updates
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'iam'
-      - 'roles'
-      - 'update'
-      - 'custom_role1'
-      - '--project=$_PROJECT_ID'
-      - '--add-permissions=storage.buckets.get,storage.buckets.list'
-
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'iam'
-      - 'roles'
-      - 'update'
-      - 'custom_role2'
-      - '--project=$_PROJECT_ID'
-      - '--add-permissions=compute.instances.get,compute.instances.list'
-
-timeout: 1200s

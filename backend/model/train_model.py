@@ -9,7 +9,7 @@ from collect_data import fetch_roles, fetch_access_logs, fetch_compliance_data, 
 
 
 # Path to your GCP service account key file
-SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/service-account-key.json")
+credentials = service_account.Credentials.from_service_account_file("./keys/service-account-key.json")
 
 # Ensure the service account file exists
 if not os.path.exists(SERVICE_ACCOUNT_FILE):

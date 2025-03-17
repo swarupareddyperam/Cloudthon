@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: gcr.io/second-broker-453913-b0/frontend:latest
+          image: europe-west1-docker.pkg.dev/second-broker-453913-b0/backend/python-backend:latest
           ports:
             - containerPort: 3000
           resources:

@@ -1,5 +1,6 @@
 substitutions:
   _PROJECT_ID: "second-broker-453913-b0"
+  _REGION: "europe-west1"
 
 options:
   logging: CLOUD_LOGGING_ONLY
@@ -7,19 +8,19 @@ options:
 steps:
   # Build Backend
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$_PROJECT_ID/backend', './backend']
+    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO/backend', './backend']
 
   # Build Frontend
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$_PROJECT_ID/frontend', './frontend']
+    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO/frontend', './frontend']
 
-  # Push Backend Image
+  # Push Backend Image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$_PROJECT_ID/backend']
+    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend']
 
-  # Push Frontend Image
+  # Push Frontend Image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$_PROJECT_ID/frontend']
+    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend']
 
   # Deploy Backend to GKE
   - name: 'gcr.io/cloud-builders/gke-deploy'
@@ -39,4 +40,3 @@ steps:
       - '--cluster=cloudthon'
       - '--location=europe-west1'
 
-  

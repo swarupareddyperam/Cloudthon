@@ -11,9 +11,7 @@ import pandas as pd
 
 from src.gcp_data import fetch_iam_activity_logs, fetch_roles
 from sample_data.data import RISK_ALERTS, ACCESS_LOGS
-import sys
-sys.path.append('/app')
-import collect_data
+
 
 app = Flask(__name__)
 CORS(app, origins=["*", "http://localhost:3000", "http://127.0.0.1:3000"])

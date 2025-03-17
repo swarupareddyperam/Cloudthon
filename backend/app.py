@@ -16,16 +16,15 @@ app = Flask(__name__)
 CORS(app, origins=["*", "http://localhost:3000", "http://127.0.0.1:3000"])
 
 ## Read service account key file path from an environment variable
-SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/serviceaccount.json")
-if not SERVICE_ACCOUNT_FILE or not os.path.exists(SERVICE_ACCOUNT_FILE):
-    raise FileNotFoundError(f"Service account file not found: {SERVICE_ACCOUNT_FILE}")
-#SERVICE_ACCOUNT_FILE = "./keys/serviceaccunt.json"
-# Use the credentials in your Google Cloud API calls
+SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/service-account-key.json")
+
+# Initialize GCP clients
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE)
 iam_service = build("iam", "v1", credentials=credentials)  # Initialize IAM service
 logging_client = logging.Client(credentials=credentials)
 bigquery_client = bigquery.Client(credentials=credentials)
 storage_client = storage.Client(credentials=credentials)
+# Sample role database (replace with actual role data from GCP)
 
 # Fetch IAM roles and permissions
 @app.route('/roles', methods=['GET'])

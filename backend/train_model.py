@@ -12,10 +12,8 @@ from google.cloud import storage
 from src.gcp_data import fetch_iam_activity_logs, fetch_roles, fetch_access_logs, fetch_compliance_data
 
 # Path to your GCP service account key file
-SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/serviceaccount.json")
+SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/service-account-key.json")
 
-if not os.path.exists(SERVICE_ACCOUNT_FILE):
-    raise FileNotFoundError(f"Service account file not found: {SERVICE_ACCOUNT_FILE}")
 # Initialize credentials
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE)
 

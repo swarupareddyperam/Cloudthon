@@ -8,10 +8,17 @@ import pickle
 from collect_data import fetch_roles, fetch_access_logs, fetch_compliance_data, fetch_iam_activity_logs
 
 
-SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/serviceaccount.json")
-if not SERVICE_ACCOUNT_FILE or not os.path.exists(SERVICE_ACCOUNT_FILE):
+# Path to your GCP service account key file
+SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/service-account-key.json")
+
+# Ensure the service account file exists
+if not os.path.exists(SERVICE_ACCOUNT_FILE):
     raise FileNotFoundError(f"Service account file not found: {SERVICE_ACCOUNT_FILE}")
+
+# Initialize credentials
+credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE)
 storage_client = storage.Client(credentials=credentials)
+
 
 # Load data from GCP
 def load_data_from_gcp():

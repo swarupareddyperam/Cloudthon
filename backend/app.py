@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify
 from flask_cors import CORS
 from google.oauth2 import service_account
@@ -15,8 +16,10 @@ app = Flask(__name__)
 CORS(app, origins=["*", "http://localhost:3000", "http://127.0.0.1:3000"])
 
 ## Read service account key file path from an environment variable
-#SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "./keys/service-account-key.json")
-SERVICE_ACCOUNT_FILE = "./keys/serviceaccunt.json"
+export GOOGLE_APPLICATION_CREDENTIALS="/keys/serviceaccount.json"
+if not SERVICE_ACCOUNT_FILE or not os.path.exists(SERVICE_ACCOUNT_FILE):
+    raise FileNotFoundError(f"Service account file not found: {SERVICE_ACCOUNT_FILE}")
+#SERVICE_ACCOUNT_FILE = "./keys/serviceaccunt.json"
 # Use the credentials in your Google Cloud API calls
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE)
 iam_service = build("iam", "v1", credentials=credentials)  # Initialize IAM service

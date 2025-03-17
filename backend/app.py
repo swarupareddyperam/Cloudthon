@@ -16,8 +16,10 @@ app = Flask(__name__)
 CORS(app, origins=["*", "http://localhost:3000", "http://127.0.0.1:3000"])
 
 ## Read service account key file path from an environment variable
-SERVICE_ACCOUNT_FILE = "/keys/service-account-key.json"
+SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/service-account-key.json")
 
+# Debugging: Print the file path to ensure it's correct
+print(f"Using service account file: {SERVICE_ACCOUNT_FILE}")
 # Initialize GCP clients
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE)
 iam_service = build("iam", "v1", credentials=credentials)  # Initialize IAM service

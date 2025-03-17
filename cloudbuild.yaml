@@ -11,7 +11,7 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - 'cp ./keys/serviceaccount.json /workspace/service-account-key.json'
+      - 'cp keys/serviceaccount.json /workspace/service-account-key.json'
 
   # Build Backend
   - name: 'gcr.io/cloud-builders/docker'

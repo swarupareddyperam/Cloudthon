@@ -9,22 +9,24 @@ steps:
   
 
   # Build Backend
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend', './backend']
+  
+   
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend', './backend']
     
 
-  # Build Frontend
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend', './frontend']
+  # # Build Frontend
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['build', '-t', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend', './frontend']
     
 
-  # Push Backend Image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend']
+  # # Push Backend Image to Artifact Registry
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend']
 
-  # Push Frontend Image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend']
+  # # Push Frontend Image to Artifact Registry
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend']
 
   # Deploy Frontend to GKE
   - name: 'gcr.io/cloud-builders/gke-deploy'

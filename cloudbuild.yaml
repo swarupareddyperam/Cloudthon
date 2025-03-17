@@ -15,7 +15,7 @@ steps:
 
   # Step 3: Push Backend Image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/nackend/python-backend']
+    args: ['push', '$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend']
 
   # Step 4: Push Frontend Image
   - name: 'gcr.io/cloud-builders/docker'

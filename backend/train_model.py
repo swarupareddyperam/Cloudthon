@@ -1,16 +1,15 @@
 import os
 import pandas as pd
-
 from sklearn.ensemble import IsolationForest
 import pickle
-
 from google.oauth2 import service_account
 from google.cloud import logging, bigquery
 from googleapiclient.discovery import build
 from google.cloud import storage
+from google.oauth2 import service_account
+import pickle
 
 from src.gcp_data import fetch_iam_activity_logs, fetch_roles, fetch_access_logs, fetch_compliance_data
-
 # Path to your GCP service account key file
 SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/serviceaccount.json")
 # Initialize credentials

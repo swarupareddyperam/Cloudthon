@@ -4,6 +4,8 @@ from flask_cors import CORS
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from google.cloud import logging, bigquery
+from google.oauth2 import service_account
+from collect_data import fetch_roles, fetch_access_logs, fetch_compliance_data, fetch_iam_activity_logs
 from sklearn.ensemble import IsolationForest
 import pickle
 from google.cloud import storage

@@ -11,8 +11,7 @@ import pickle
 
 from src.gcp_data import fetch_iam_activity_logs, fetch_roles, fetch_access_logs, fetch_compliance_data
 # Path to your GCP service account key file
-SERVICE_ACCOUNT_FILE = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "/app/keys/serviceaccount.json")
-# Initialize credentials
+SERVICE_ACCOUNT_FILE = "keys/serviceaccount.json"
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE)
 
 # Set up GCP clients with service account credentials

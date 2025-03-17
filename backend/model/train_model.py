@@ -8,7 +8,7 @@ import fetch_roles, fetch_access_logs, fetch_compliance_data, fetch_iam_activity
 
 
 # Path to your GCP service account key file
-credentials = service_account.Credentials.from_service_account_file("/keys/serviceaccount.json")
+SERVICE_ACCOUNT_FILE = "keys/serviceaccount.json"
 
 # Ensure the service account file exists
 if not os.path.exists(SERVICE_ACCOUNT_FILE):

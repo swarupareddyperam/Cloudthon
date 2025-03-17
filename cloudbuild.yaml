@@ -27,7 +27,6 @@ steps:
     args:
       - 'apply'
       - '--filename=./backend.yaml'
-      - '--image=$_REGION-docker.pkg.dev/$_PROJECT_ID/backend/python-backend'
       - '--cluster=cloudthon'
       - '--location=$_REGION'
 
@@ -36,6 +35,5 @@ steps:
     args:
       - 'apply'
       - '--filename=./frontend.yaml'
-      - '--image=$_REGION-docker.pkg.dev/$_PROJECT_ID/frontend/react-frontend'
       - '--cluster=cloudthon'
       - '--location=$_REGION'
